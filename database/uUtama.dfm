@@ -70,14 +70,14 @@ object FUtama: TFUtama
           Width = 457
           Height = 21
           PasswordChar = '#'
-          TabOrder = 0
+          TabOrder = 3
         end
         object EdUser: TEdit
           Left = 56
           Top = 72
           Width = 457
           Height = 21
-          TabOrder = 1
+          TabOrder = 2
           Text = 'root'
         end
         object EdPort: TEdit
@@ -85,7 +85,7 @@ object FUtama: TFUtama
           Top = 48
           Width = 457
           Height = 21
-          TabOrder = 2
+          TabOrder = 1
           Text = '3306'
         end
         object EdHost: TEdit
@@ -93,7 +93,7 @@ object FUtama: TFUtama
           Top = 24
           Width = 457
           Height = 21
-          TabOrder = 3
+          TabOrder = 0
           Text = 'localhost'
         end
       end
@@ -149,7 +149,7 @@ object FUtama: TFUtama
         end
         object EdPasswordDb: TEdit
           Left = 96
-          Top = 96
+          Top = 72
           Width = 417
           Height = 21
           PasswordChar = '#'
@@ -157,7 +157,7 @@ object FUtama: TFUtama
         end
         object EdPerusahaan: TEdit
           Left = 96
-          Top = 72
+          Top = 96
           Width = 417
           Height = 21
           TabOrder = 3
