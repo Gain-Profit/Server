@@ -3,7 +3,7 @@ object FUtama: TFUtama
   Top = 125
   Width = 928
   Height = 480
-  Caption = 'Cek Update'
+  Caption = 'Cek Pembaruan Program'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
