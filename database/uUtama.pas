@@ -55,6 +55,16 @@ procedure TFUtama.BtnConnectClick(Sender: TObject);
 var
   FileMaster: TFileName;
 begin
+  FileMaster:= ExtractFilePath(Application.ExeName) + 'db\v_2_1_4.sql';
+  if not(FileExists(FileMaster)) then
+  begin
+    ShowMessage('file : ' + FileMaster + ' Tidak Ketemu');
+    Exit;
+  end;
+  FFileMaster.LoadFromFile(FileMaster);
+  FFileMaster.
+  Exit;
+
   Con.Host:= EdHost.Text;
   Con.Port:= StrToIntDef(EdPort.Text, 3306);
   Con.UserName:= EdUser.Text;
@@ -66,13 +76,6 @@ begin
     Exit;
   end;
 
-  FileMaster:= ExtractFilePath(Application.ExeName) + 'db\v_2_1_4.sql';
-  if not(FileExists(FileMaster)) then
-  begin
-    ShowMessage('file : ' + FileMaster + ' Tidak Ketemu');
-    Exit;
-  end;
-  FFileMaster.LoadFromFile(FileMaster);
   try
     Con.StartTransaction;
     Con.Execute(Format('CREATE DATABASE IF NOT EXISTS `%s`', [EdDatabase.Text]));
