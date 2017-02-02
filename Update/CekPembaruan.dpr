@@ -1,4 +1,4 @@
-program OnlineUpdate;
+program CekPembaruan;
 
 uses
   Forms,
