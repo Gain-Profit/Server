@@ -1,9 +1,9 @@
-object Form1: TForm1
+object FUtama: TFUtama
   Left = 192
   Top = 125
   Width = 928
   Height = 480
-  Caption = 'Form1'
+  Caption = 'Cek Update'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

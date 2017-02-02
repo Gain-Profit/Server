@@ -2,12 +2,12 @@ program OnlineUpdate;
 
 uses
   Forms,
-  uUtama in 'uUtama.pas' {Form1};
+  uUtama in 'uUtama.pas' {FUtama};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TFUtama, FUtama);
   Application.Run;
 end.
