@@ -8,7 +8,7 @@ uses
   Vcl.Bind.DBEngExt, Vcl.Bind.Grid, System.Rtti, System.Bindings.Outputs,
   Vcl.Bind.Editors, Data.Bind.Components, Data.Bind.Grid, Data.Bind.DBScope,
   Data.DB, IPPeerClient, Vcl.StdCtrls, REST.Response.Adapter, REST.Client,
-  Data.Bind.ObjectScope, Datasnap.DBClient, Vcl.ExtCtrls, Vcl.ComCtrls;
+  Data.Bind.ObjectScope, Datasnap.DBClient, Vcl.ExtCtrls, Vcl.ComCtrls, System.DateUtils;
 
 type
   TFrmMain = class(TForm)
@@ -34,11 +34,20 @@ implementation
 {$R *.dfm}
 
 procedure TFrmMain.BtnCekUpdateClick(Sender: TObject);
+var
+  Expired: TDate;
 begin
-  Screen.Cursor := crHourGlass;
-  Req.Resource := 'profit.json';
-  Req.Execute;
-  Screen.Cursor := crDefault;
+//  Screen.Cursor := crHourGlass;
+//  Req.Resource := 'clients/ps001/expired.json';
+//  Req.Execute;
+//  Req.ExecuteAsync(procedure
+//                   begin
+//                     ShowMessage(Req.Response.JSONText);
+//                   end);
+//  ShowMessage(Response.JSONText);
+//  Screen.Cursor := crDefault;
+  Expired := EncodeDate(2015, 1, 1);
+  ShowMessage(IntToStr(DaysBetween(Expired, Date)));
 end;
 
 end.
