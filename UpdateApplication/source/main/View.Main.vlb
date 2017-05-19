@@ -1,0 +1,17 @@
+﻿[StringGrid1]
+Coordinates=10,10,70,51
+Visible=True
+
+[]
+Coordinates=150,20,92,159
+Visible=False
+
+[Client]
+Coordinates=280,20,50,69
+
+[Req]
+Coordinates=270,110,76,87
+
+[Response]
+Coordinates=390,0,85,285
+
