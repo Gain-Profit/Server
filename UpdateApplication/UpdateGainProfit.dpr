@@ -2,7 +2,8 @@ program UpdateGainProfit;
 
 uses
   Vcl.Forms,
-  View.Main in 'source\main\View.Main.pas' {FrmMain};
+  View.Main in 'source\main\View.Main.pas' {FrmMain},
+  Model.Main in 'source\main\Model.Main.pas';
 
 {$R *.res}
 
