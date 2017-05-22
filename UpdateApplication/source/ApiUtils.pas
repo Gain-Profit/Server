@@ -3,7 +3,7 @@ unit ApiUtils;
 interface
 
 uses
-  REST.Client, System.SysUtils, REST.Json;
+  REST.Client, System.SysUtils, REST.Json, IPPeerClient;
 
 Type
   TFirebaseApi = class
