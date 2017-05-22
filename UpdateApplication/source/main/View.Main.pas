@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.ComCtrls,
-  Vcl.StdCtrls, Vcl.ExtCtrls, ViewModel.Main;
+  Vcl.StdCtrls, Vcl.ExtCtrls, ViewModel.Main, Model.Main;
 
 type
   TFrmMain = class(TForm)
@@ -52,6 +52,14 @@ begin
                        begin
                          ShowMessage(msg);
                        end);
+
+  FVm.SetOnLoadClient(procedure (AClient: TClient)
+                      begin
+                        EdKode.Text := AClient.Kode;
+                        EdNama.Text := AClient.Nama;
+                        EdAlamat.Text := AClient.Alamat;
+                        EdExpired.Text := FormatDateTime('dd/MM/yyyy', AClient.GetExpiredDate);
+                      end);
 end;
 
 procedure TFrmMain.FormDestroy(Sender: TObject);

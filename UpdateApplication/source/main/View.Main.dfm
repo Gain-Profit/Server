@@ -28,9 +28,6 @@ object FrmMain: TFrmMain
     RowCount = 2
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goRowSelect]
     TabOrder = 0
-    ExplicitTop = 42
-    ExplicitWidth = 684
-    ExplicitHeight = 355
     ColWidths = (
       179)
     RowHeights = (
@@ -111,7 +108,6 @@ object FrmMain: TFrmMain
     Width = 705
     Height = 19
     Panels = <>
-    ExplicitWidth = 684
   end
   object PnlFooter: TPanel
     Left = 0
@@ -120,7 +116,6 @@ object FrmMain: TFrmMain
     Height = 35
     Align = alBottom
     TabOrder = 3
-    ExplicitWidth = 684
     DesignSize = (
       705
       35)
@@ -141,7 +136,6 @@ object FrmMain: TFrmMain
       Anchors = [akTop, akRight]
       Caption = 'Update'
       TabOrder = 1
-      ExplicitLeft = 616
     end
   end
 end
