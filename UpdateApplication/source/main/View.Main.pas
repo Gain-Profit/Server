@@ -11,8 +11,18 @@ type
   TFrmMain = class(TForm)
     StringGrid1: TStringGrid;
     PnlHeader: TPanel;
-    BtnCekUpdate: TButton;
     StatusBar1: TStatusBar;
+    PnlFooter: TPanel;
+    BtnCekUpdate: TButton;
+    BtnUpdate: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    EdKode: TEdit;
+    EdExpired: TEdit;
+    EdNama: TEdit;
+    EdAlamat: TEdit;
     procedure BtnCekUpdateClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -33,7 +43,6 @@ implementation
 procedure TFrmMain.BtnCekUpdateClick(Sender: TObject);
 begin
   FVm.Start('ps001');
-  ShowMessage(FVm.Client.Nama);
 end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);

@@ -3,7 +3,7 @@ object FrmMain: TFrmMain
   Top = 0
   Caption = 'Update Gain Profit'
   ClientHeight = 416
-  ClientWidth = 684
+  ClientWidth = 705
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,9 +18,9 @@ object FrmMain: TFrmMain
   TextHeight = 13
   object StringGrid1: TStringGrid
     Left = 0
-    Top = 42
-    Width = 684
-    Height = 355
+    Top = 73
+    Width = 705
+    Height = 289
     Align = alClient
     ColCount = 1
     DefaultColWidth = 100
@@ -28,6 +28,9 @@ object FrmMain: TFrmMain
     RowCount = 2
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goRowSelect]
     TabOrder = 0
+    ExplicitTop = 42
+    ExplicitWidth = 684
+    ExplicitHeight = 355
     ColWidths = (
       179)
     RowHeights = (
@@ -37,25 +40,108 @@ object FrmMain: TFrmMain
   object PnlHeader: TPanel
     Left = 0
     Top = 0
-    Width = 684
-    Height = 42
+    Width = 705
+    Height = 73
     Align = alTop
     TabOrder = 1
+    object Label1: TLabel
+      Left = 8
+      Top = 16
+      Width = 24
+      Height = 13
+      Caption = 'Kode'
+    end
+    object Label2: TLabel
+      Left = 8
+      Top = 43
+      Width = 36
+      Height = 13
+      Caption = 'Expired'
+    end
+    object Label3: TLabel
+      Left = 240
+      Top = 16
+      Width = 27
+      Height = 13
+      Caption = 'Nama'
+    end
+    object Label4: TLabel
+      Left = 240
+      Top = 40
+      Width = 33
+      Height = 13
+      Caption = 'Alamat'
+    end
+    object EdKode: TEdit
+      Left = 56
+      Top = 13
+      Width = 178
+      Height = 21
+      Enabled = False
+      TabOrder = 0
+    end
+    object EdExpired: TEdit
+      Left = 56
+      Top = 40
+      Width = 178
+      Height = 21
+      Enabled = False
+      TabOrder = 1
+    end
+    object EdNama: TEdit
+      Left = 277
+      Top = 13
+      Width = 419
+      Height = 21
+      Enabled = False
+      TabOrder = 2
+    end
+    object EdAlamat: TEdit
+      Left = 277
+      Top = 40
+      Width = 419
+      Height = 21
+      Enabled = False
+      TabOrder = 3
+    end
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 397
+    Width = 705
+    Height = 19
+    Panels = <>
+    ExplicitWidth = 684
+  end
+  object PnlFooter: TPanel
+    Left = 0
+    Top = 362
+    Width = 705
+    Height = 35
+    Align = alBottom
+    TabOrder = 3
+    ExplicitWidth = 684
+    DesignSize = (
+      705
+      35)
     object BtnCekUpdate: TButton
       Left = 8
-      Top = 9
+      Top = 4
       Width = 75
       Height = 25
       Caption = 'Cek Update'
       TabOrder = 0
       OnClick = BtnCekUpdateClick
     end
-  end
-  object StatusBar1: TStatusBar
-    Left = 0
-    Top = 397
-    Width = 684
-    Height = 19
-    Panels = <>
+    object BtnUpdate: TButton
+      Left = 621
+      Top = 4
+      Width = 75
+      Height = 25
+      Anchors = [akTop, akRight]
+      Caption = 'Update'
+      TabOrder = 1
+      ExplicitLeft = 616
+    end
   end
 end
