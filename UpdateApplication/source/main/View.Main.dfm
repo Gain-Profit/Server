@@ -56,26 +56,4 @@ object FrmMain: TFrmMain
     Height = 19
     Panels = <>
   end
-  object Client: TRESTClient
-    Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
-    AcceptCharset = 'UTF-8, *;q=0.8'
-    BaseURL = 'https://gain-profit-update.firebaseio.com'
-    Params = <>
-    HandleRedirects = True
-    Left = 8
-    Top = 144
-  end
-  object Req: TRESTRequest
-    Client = Client
-    Params = <>
-    Response = Response
-    SynchronizedEvents = False
-    Left = 56
-    Top = 144
-  end
-  object Response: TRESTResponse
-    ContentType = 'application/json'
-    Left = 120
-    Top = 144
-  end
 end
