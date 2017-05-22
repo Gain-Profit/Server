@@ -31,11 +31,10 @@ type
     constructor Create(const AVersion: String); overload;
     function CompareTo(const version: TVersion): Integer;
     function AsString: string;
-    { Operator Overloads }
-    class operator Equal(const left, right: TVersion): Boolean;
-    class operator NotEqual(const left, right: TVersion): Boolean;
-    class operator GreaterThan(const left, right: TVersion): Boolean;
-    class operator LessThan(const left, right: TVersion): Boolean;
+    class function Equal(const left, right: TVersion): Boolean;
+    class function NotEqual(const left, right: TVersion): Boolean;
+    class function GreaterThan(const left, right: TVersion): Boolean;
+    class function LessThan(const left, right: TVersion): Boolean;
   published
     property Major: Integer read FMajor;
     property Minor: Integer read FMinor;
@@ -142,22 +141,22 @@ begin
   FreeAndNil(LVersion);
 end;
 
-class operator TVersion.Equal(const left, right: TVersion): Boolean;
+class function TVersion.Equal(const left, right: TVersion): Boolean;
 begin
   Result := left.CompareTo(right) = 0;
 end;
 
-class operator TVersion.GreaterThan(const left, right: TVersion): Boolean;
+class function TVersion.GreaterThan(const left, right: TVersion): Boolean;
 begin
   Result := left.CompareTo(right) > 0;
 end;
 
-class operator TVersion.LessThan(const left, right: TVersion): Boolean;
+class function TVersion.LessThan(const left, right: TVersion): Boolean;
 begin
   Result := left.CompareTo(right) < 0;
 end;
 
-class operator TVersion.NotEqual(const left, right: TVersion): Boolean;
+class function TVersion.NotEqual(const left, right: TVersion): Boolean;
 begin
   Result := left.CompareTo(right) <> 0;
 end;
