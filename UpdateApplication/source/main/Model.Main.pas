@@ -5,22 +5,23 @@ interface
     Classes, System.SysUtils;
 
 type
-  TClient = class
+  TClient = class(TObject)
   private
     FKode: string;
     FNama: string;
     FAlamat: string;
     FExpired: LongInt;
   public
-    constructor Create(AKode, ANama, AAlamat: string; AExpired: LongInt);
+    constructor Create; overload;
+    constructor Create(AKode, ANama, AAlamat: string; AExpired: LongInt); overload;
   published
-    property Kode: string read FKode;
-    property Nama: string read FNama;
-    property Alamat: string read FAlamat;
-    property Expired: LongInt read FExpired;
+    property Kode: string read FKode write FKode;
+    property Nama: string read FNama write FNama;
+    property Alamat: string read FAlamat write FAlamat;
+    property Expired: LongInt read FExpired write FExpired;
   end;
 
-  TVersion = class
+  TVersion = class(TObject)
   protected
     FMajor: Integer;
     FMinor: Integer;
@@ -42,7 +43,7 @@ type
     property Build: Integer read FBuild;
   end;
 
-  TApplication = class
+  TApplication = class(TObject)
   private
     FPath: string;
     FName: string;
@@ -70,6 +71,11 @@ begin
   FNama := ANama;
   FAlamat := AAlamat;
   FExpired := AExpired;
+end;
+
+constructor TClient.Create;
+begin
+  inherited Create;
 end;
 
 { TApplication }
