@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, ApiUtils, Vcl.ComCtrls,
-  Vcl.StdCtrls, Vcl.ExtCtrls,IPPeerClient;
+  Vcl.StdCtrls, Vcl.ExtCtrls,IPPeerClient, ViewModel.Main;
 
 type
   TFrmMain = class(TForm)
@@ -14,7 +14,10 @@ type
     BtnCekUpdate: TButton;
     StatusBar1: TStatusBar;
     procedure BtnCekUpdateClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
+    FVm : TViewModelMain;
     { Private declarations }
   public
     { Public declarations }
@@ -33,14 +36,22 @@ var
   Hasil : string;
   LRes : TFirebaseApi;
 begin
-//  Screen.Cursor := crHourGlass;
-//  Expired := EncodeDate(2015, 1, 1);
-//  ShowMessage(IntToStr(DaysBetween(Expired, Date)));
+  FVm.Start('ps001');
+  ShowMessage(FVm.Client.Nama);
+end;
 
-  LRes := TFirebaseApi.Create('https://gain-profit-update.firebaseio.com');
-  Hasil := LRes.Get('clients/ps001');
-  ShowMessage(Hasil);
+procedure TFrmMain.FormCreate(Sender: TObject);
+begin
+  FVm := TViewModelMain.Create;
+  FVm.SetOnShowMessage(procedure (msg: string)
+                       begin
+                         ShowMessage(msg);
+                       end);
+end;
 
+procedure TFrmMain.FormDestroy(Sender: TObject);
+begin
+  FVm.Free;
 end;
 
 end.
