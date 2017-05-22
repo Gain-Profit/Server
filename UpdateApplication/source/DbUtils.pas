@@ -6,13 +6,15 @@ uses
   MyAccess, System.SysUtils;
 
 type
-  TConnection = class(TObject)
+  TDatabase = class(TObject)
   private
     FConnection: TMyConnection;
   public
     constructor Create;
     destructor Destroy;
+    function IsConnected: Boolean;
   end;
+
 implementation
 
 function Decrypt(const s: string; CryptInt: Integer): string;
@@ -26,9 +28,9 @@ begin
   Result := s2;
 end;
 
-{ TConnection }
+{ TDatabase }
 
-constructor TConnection.Create;
+constructor TDatabase.Create;
 var
   host, db, jalur, user, kunci: string;
   X: TextFile;
@@ -56,9 +58,15 @@ begin
 
 end;
 
-destructor TConnection.Destroy;
+destructor TDatabase.Destroy;
 begin
   FConnection.Free;
+end;
+
+function TDatabase.IsConnected: Boolean;
+begin
+  FConnection.Connect;
+  Result := FConnection.Connected;
 end;
 
 end.

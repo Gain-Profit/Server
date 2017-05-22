@@ -3,13 +3,14 @@ unit ViewModel.Main;
 interface
 
 uses
-  Model.Main, ApiUtils, System.DateUtils, System.SysUtils;
+  Model.Main, DbUtils, ApiUtils, System.DateUtils, System.SysUtils;
 
 type
   TProci = reference to procedure (msg: string);
 
   TViewModelMain = class
   private
+    FDb: TDatabase;
     FApi: TFirebaseApi;
     FClient: TClient;
     FOnShowMessage: TProci;
@@ -39,14 +40,14 @@ constructor TViewModelMain.Create;
 begin
   FClient := TClient.Create;
   FApi := TFirebaseApi.Create(BASE_URL);
+  FDb := TDatabase.Create;
 end;
 
 destructor TViewModelMain.Destroy;
 begin
-  if not(FClient = nil) then
-    FClient.Free;
-
+  FClient.Free;
   FApi.Free;
+  FDb.Free;
 end;
 
 function TViewModelMain.GetClient: TClient;
@@ -75,6 +76,12 @@ end;
 
 procedure TViewModelMain.Start(ACid: string);
 begin
+  if not(FDb.IsConnected) then
+  begin
+    FOnShowMessage('Tidak Dapat Terhubung Ke Database');
+    Exit;
+  end;
+
   FClient := FApi.GetAsT<TClient>(PATH_CLIENT + ACid);
   if (Assigned(FOnLoadClient)) then
     FOnLoadClient(FClient);
