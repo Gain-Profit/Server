@@ -3,7 +3,7 @@ unit ViewModel.Main;
 interface
 
 uses
-  Model.Main, ApiUtils, classes, System.SysUtils;
+  Model.Main, ApiUtils;
 
 type
   TProci = reference to procedure (msg: string);
@@ -11,9 +11,9 @@ type
   TViewModelMain = class
   private
     FApi: TFirebaseApi;
-    FClientId: string;
     FClient : TClient;
     FOnShowMessage : TProci;
+    FStarted: Boolean;
     function GetClient: TClient;
   public
     constructor Create;
@@ -29,7 +29,6 @@ implementation
 const
   BASE_URL = 'https://gain-profit-update.firebaseio.com';
   PATH_CLIENT = 'clients/';
-  CLIENT_ID_CANNOT_BE_EMPTY = 'Client Id Cannot be empty';
 
 { TViewModelMain }
 
@@ -41,18 +40,15 @@ end;
 
 destructor TViewModelMain.Destroy;
 begin
-  FClient.Free;
+  if not(FClient = nil) then
+    FClient.Free;
+
   FApi.Free;
 end;
 
 function TViewModelMain.GetClient: TClient;
 begin
-  if (FClientId = '') then
-  begin
-    raise Exception.Create(CLIENT_ID_CANNOT_BE_EMPTY);
-  end;
-
-  Result := FApi.GetAsT<TClient>(PATH_CLIENT + FClientId);
+  Result := FClient;
 end;
 
 procedure TViewModelMain.SetOnShowMessage(AProc: TProci);
@@ -62,7 +58,7 @@ end;
 
 procedure TViewModelMain.Start(ACid: string);
 begin
-  FClientId := ACid;
+  FClient := FApi.GetAsT<TClient>(PATH_CLIENT + ACid);
 end;
 
 end.
