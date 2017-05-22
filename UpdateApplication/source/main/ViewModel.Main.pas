@@ -21,7 +21,7 @@ type
   public
     constructor Create;
     destructor Destroy;
-    procedure Start(ACid: string);
+    procedure Start;
     procedure SetOnShowMessage(AProc: TProci);
     procedure SetOnLoadClient(AProc: TProc<TClient>);
   published
@@ -74,7 +74,9 @@ begin
   FOnShowMessage := AProc;
 end;
 
-procedure TViewModelMain.Start(ACid: string);
+procedure TViewModelMain.Start;
+var
+  LCid: string;
 begin
   if not(FDb.IsConnected) then
   begin
@@ -82,7 +84,14 @@ begin
     Exit;
   end;
 
-  FClient := FApi.GetAsT<TClient>(PATH_CLIENT + ACid);
+  LCid := FDb.GetClientId;
+  if (LCid = '') then
+  begin
+    FOnShowMessage('Kode Perusahaan Tidak Ditemukan Pada Database');
+    Exit;
+  end;
+
+  FClient := FApi.GetAsT<TClient>(PATH_CLIENT + LCid);
   if (Assigned(FOnLoadClient)) then
     FOnLoadClient(FClient);
 

@@ -42,7 +42,7 @@ implementation
 
 procedure TFrmMain.BtnCekUpdateClick(Sender: TObject);
 begin
-  FVm.Start('ps001');
+  FVm.Start;
 end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);
