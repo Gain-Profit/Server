@@ -1,5 +1,5 @@
 ﻿[]
-Coordinates=323,1,82,33
+Coordinates=332,133,60,36
 Visible=False
 
 [PnlHeader]
@@ -48,6 +48,34 @@ ActiveLayerNames=
 EditingLayerName=
 
 [SgApp]
-Coordinates=10,10,47,51
+Coordinates=310,0,53,123
 Visible=True
+
+[DataSet]
+Coordinates=332,1,52,33
+Visible=False
+
+[BindSourceDB1]
+Coordinates=440,10,92,177
+
+[BindingsList1]
+Coordinates=0,0,82,33
+
+[DataSetVersi]
+Coordinates=323,70,77,33
+
+[DataSetNama]
+Coordinates=323,122,80,33
+
+[DataSetPath]
+Coordinates=323,174,74,33
+
+[DataSetDownload]
+Coordinates=395,226,101,33
+
+[DataSetMd5]
+Coordinates=0,0,73,33
+
+[DataSetversi_now]
+Coordinates=0,0,103,33
 

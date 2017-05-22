@@ -17,18 +17,21 @@ object FrmMain: TFrmMain
   PixelsPerInch = 96
   TextHeight = 13
   object SgApp: TStringGrid
+    Tag = 4
     Left = 0
     Top = 73
     Width = 705
     Height = 289
     Align = alClient
-    ColCount = 2
+    ColCount = 4
     DefaultColWidth = 100
     FixedCols = 0
     RowCount = 2
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goRowSelect]
     TabOrder = 0
     ColWidths = (
+      150
+      75
       100
       100)
     RowHeights = (
@@ -137,6 +140,78 @@ object FrmMain: TFrmMain
       Anchors = [akTop, akRight]
       Caption = 'Update'
       TabOrder = 1
+    end
+  end
+  object DataSet: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 400
+    Top = 104
+    object DataSetNama: TStringField
+      DisplayLabel = 'Nama Applikasi'
+      FieldName = 'nama'
+      Size = 50
+    end
+    object DataSetVersi: TStringField
+      DisplayLabel = 'Versi Terbaru'
+      FieldName = 'versi'
+    end
+    object DataSetPath: TStringField
+      DisplayLabel = 'Path'
+      FieldName = 'path'
+      Size = 100
+    end
+    object DataSetDownload: TStringField
+      FieldName = 'download'
+      Size = 255
+    end
+    object DataSetMd5: TStringField
+      DisplayLabel = 'MD5'
+      FieldName = 'md5_file'
+      Size = 50
+    end
+    object DataSetversi_now: TStringField
+      DisplayLabel = 'Versi Sekarang'
+      FieldKind = fkCalculated
+      FieldName = 'versi_now'
+      Calculated = True
+    end
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSet = DataSet
+    ScopeMappings = <>
+    Left = 64
+    Top = 8
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 20
+    Top = 5
+    object LinkGridToDataSourceBindSourceDB1: TLinkGridToDataSource
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      GridControl = SgApp
+      Columns = <
+        item
+          MemberName = 'nama'
+          Width = 150
+        end
+        item
+          MemberName = 'path'
+          Width = 75
+        end
+        item
+          MemberName = 'versi_now'
+          Width = 100
+        end
+        item
+          MemberName = 'versi'
+          Width = 100
+        end>
     end
   end
 end

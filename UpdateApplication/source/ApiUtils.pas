@@ -3,7 +3,8 @@ unit ApiUtils;
 interface
 
 uses
-  REST.Client, System.SysUtils, REST.Json, IPPeerClient;
+  REST.Client, System.SysUtils, REST.Json, IPPeerClient,
+  REST.Response.Adapter;
 
 Type
   TFirebaseApi = class
@@ -11,12 +12,16 @@ Type
     FClient: TRESTClient;
     FRequest: TRESTRequest;
     FResponse: TRESTResponse;
+    FAdapter: TRESTResponseDataSetAdapter;
   public
     constructor Create(const ABaseApiURL: string);
     destructor Destroy;
     function Get(const APath: string): string;
     function GetAsT<T: class, constructor>(const APath: string): T;
     procedure GetAsync(const APath: string; AProc: TProc = nil);
+    procedure GetToAdapter(const APath: string);
+  published
+    property Adapter: TRESTResponseDataSetAdapter read FAdapter;
   end;
 
 implementation
@@ -37,6 +42,9 @@ begin
   FRequest.Client := FClient;
   FRequest.Response := FResponse;
   FRequest.SynchronizedEvents := True;
+
+  FAdapter := TRESTResponseDataSetAdapter.Create(FClient);
+  FAdapter.Response := FResponse;
 end;
 
 destructor TFirebaseApi.Destroy;
@@ -62,6 +70,12 @@ procedure TFirebaseApi.GetAsync(const APath: string; AProc: TProc);
 begin
   FRequest.Resource := APath + '.json';
   FRequest.ExecuteAsync(AProc);
+end;
+
+procedure TFirebaseApi.GetToAdapter(const APath: string);
+begin
+  FRequest.Resource := APath + '.json';
+  FRequest.Execute;
 end;
 
 end.

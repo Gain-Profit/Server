@@ -26,6 +26,7 @@ type
     procedure SetOnLoadClient(AProc: TProc<TClient>);
   published
     property Client: TClient read GetClient;
+    property Api: TFirebaseApi read FApi;
   end;
 
 implementation
@@ -101,6 +102,8 @@ begin
     FOnShowMessage('Masa Garansi Sudah Expired');
     Exit;
   end;
+
+  FApi.GetToAdapter(PATH_APPLICATION);
 end;
 
 end.

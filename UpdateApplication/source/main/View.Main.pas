@@ -6,7 +6,10 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids,
   Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls, ViewModel.Main, Model.Main,
-  System.Generics.Collections;
+  Data.Bind.EngExt, Vcl.Bind.DBEngExt, Vcl.Bind.Grid, System.Rtti,
+  System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components,
+  Data.Bind.Grid, Data.Bind.DBScope, Data.DB, Datasnap.DBClient,
+  REST.Response.Adapter;
 
 type
   TFrmMain = class(TForm)
@@ -24,12 +27,21 @@ type
     EdExpired: TEdit;
     EdNama: TEdit;
     EdAlamat: TEdit;
+    DataSet: TClientDataSet;
+    BindSourceDB1: TBindSourceDB;
+    BindingsList1: TBindingsList;
+    LinkGridToDataSourceBindSourceDB1: TLinkGridToDataSource;
+    DataSetNama: TStringField;
+    DataSetVersi: TStringField;
+    DataSetPath: TStringField;
+    DataSetDownload: TStringField;
+    DataSetMd5: TStringField;
+    DataSetversi_now: TStringField;
     procedure BtnCekUpdateClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
   private
     FVm: TViewModelMain;
-    FApps: TList<TApplication>;
     { Private declarations }
   public
     { Public declarations }
@@ -50,6 +62,7 @@ end;
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
   FVm := TViewModelMain.Create;
+  FVm.Api.Adapter.Dataset := DataSet;
   FVm.SetOnShowMessage(
     procedure(msg: string)
     begin
