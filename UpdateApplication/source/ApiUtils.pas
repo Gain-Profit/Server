@@ -7,6 +7,7 @@ uses
 
 Type
   TFirebaseApi = class
+  private
     FClient: TRESTClient;
     FRequest: TRESTRequest;
     FResponse: TRESTResponse;
