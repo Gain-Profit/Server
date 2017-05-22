@@ -1,9 +1,5 @@
-﻿[StringGrid1]
-Coordinates=10,10,70,51
-Visible=True
-
-[]
-Coordinates=323,89,82,33
+﻿[]
+Coordinates=323,1,82,33
 Visible=False
 
 [PnlHeader]
@@ -50,4 +46,8 @@ Coordinates=570,60,66,51
 ModelLayerNames=
 ActiveLayerNames=
 EditingLayerName=
+
+[SgApp]
+Coordinates=10,10,47,51
+Visible=True
 

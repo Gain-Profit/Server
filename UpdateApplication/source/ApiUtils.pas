@@ -16,7 +16,7 @@ Type
     destructor Destroy;
     function Get(const APath: string): string;
     function GetAsT<T: class, constructor>(const APath: string): T;
-    procedure GetAsync(const APath: string; AProc : TProc = nil);
+    procedure GetAsync(const APath: string; AProc: TProc = nil);
   end;
 
 implementation

@@ -3,13 +3,14 @@ unit View.Main;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.ComCtrls,
-  Vcl.StdCtrls, Vcl.ExtCtrls, ViewModel.Main, Model.Main;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids,
+  Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls, ViewModel.Main, Model.Main,
+  System.Generics.Collections;
 
 type
   TFrmMain = class(TForm)
-    StringGrid1: TStringGrid;
+    SgApp: TStringGrid;
     PnlHeader: TPanel;
     StatusBar1: TStatusBar;
     PnlFooter: TPanel;
@@ -27,7 +28,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
   private
-    FVm : TViewModelMain;
+    FVm: TViewModelMain;
+    FApps: TList<TApplication>;
     { Private declarations }
   public
     { Public declarations }
@@ -48,18 +50,20 @@ end;
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
   FVm := TViewModelMain.Create;
-  FVm.SetOnShowMessage(procedure (msg: string)
-                       begin
-                         ShowMessage(msg);
-                       end);
+  FVm.SetOnShowMessage(
+    procedure(msg: string)
+    begin
+      ShowMessage(msg);
+    end);
 
-  FVm.SetOnLoadClient(procedure (AClient: TClient)
-                      begin
-                        EdKode.Text := AClient.Kode;
-                        EdNama.Text := AClient.Nama;
-                        EdAlamat.Text := AClient.Alamat;
-                        EdExpired.Text := FormatDateTime('dd/MM/yyyy', AClient.GetExpiredDate);
-                      end);
+  FVm.SetOnLoadClient(
+    procedure(AClient: TClient)
+    begin
+      EdKode.Text := AClient.Kode;
+      EdNama.Text := AClient.Nama;
+      EdAlamat.Text := AClient.Alamat;
+      EdExpired.Text := FormatDateTime('dd/MM/yyyy', AClient.GetExpiredDate);
+    end);
 end;
 
 procedure TFrmMain.FormDestroy(Sender: TObject);

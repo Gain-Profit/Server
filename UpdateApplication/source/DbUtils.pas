@@ -25,12 +25,12 @@ const
 
 function Decrypt(const s: string; CryptInt: Integer): string;
 var
-  i: integer;
+  i: Integer;
   s2: string;
 begin
-  if not (Length(s) = 0) then
+  if not(Length(s) = 0) then
     for i := 1 to Length(s) do
-      s2 := s2 + Chr(Ord(s[i]) - cryptint);
+      s2 := s2 + Chr(Ord(s[i]) - CryptInt);
   Result := s2;
 end;
 

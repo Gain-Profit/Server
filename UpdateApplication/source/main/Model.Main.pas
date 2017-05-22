@@ -1,8 +1,9 @@
 unit Model.Main;
 
 interface
-  uses
-    Classes, System.SysUtils, System.DateUtils;
+
+uses
+  Classes, System.SysUtils, System.DateUtils;
 
 type
   TClient = class(TObject)
@@ -13,7 +14,8 @@ type
     FExpired: LongInt;
   public
     constructor Create; overload;
-    constructor Create(AKode, ANama, AAlamat: string; AExpired: LongInt); overload;
+    constructor Create(AKode, ANama, AAlamat: string;
+      AExpired: LongInt); overload;
     function GetExpiredDate: TDate;
   published
     property Kode: string read FKode write FKode;
@@ -56,10 +58,11 @@ type
   published
     property Path: string read FPath;
     property Name: string read FName;
-    property Version: string read FVersion;
+    property version: string read FVersion;
     property Url: string read FUrl;
     property Md5: string read FMd5;
   end;
+
 implementation
 
 { TClient }
@@ -78,7 +81,7 @@ function TClient.GetExpiredDate: TDate;
 var
   LStart: TDate;
 begin
-  LStart:= EncodeDate(2015, 1, 1);
+  LStart := EncodeDate(2015, 1, 1);
   Result := IncDay(LStart, FExpired);
 end;
 
@@ -102,7 +105,8 @@ end;
 
 function TVersion.AsString: string;
 begin
-  Result := Format('%d.%d.%d.%d', [Self.FMajor, Self.FMinor, Self.FRelease, Self.FBuild]);
+  Result := Format('%d.%d.%d.%d', [Self.FMajor, Self.FMinor, Self.FRelease,
+    Self.FBuild]);
 end;
 
 constructor TVersion.Create(AMayor, AMinor, ARelease, ABuild: Integer);
@@ -130,28 +134,28 @@ end;
 
 constructor TVersion.Create(const AVersion: String);
 var
-  LVersion : TStrings;
+  LVersion: TStrings;
 begin
   LVersion := TStringList.Create;
   LVersion.Delimiter := '.';
   LVersion.DelimitedText := AVersion;
 
-  self.FMajor := 0;
+  Self.FMajor := 0;
   Self.FMinor := 0;
   Self.FRelease := 0;
   Self.FBuild := 0;
 
   if LVersion.Count > 0 then
-    self.FMajor := StrToIntDef(LVersion[0],0);
+    Self.FMajor := StrToIntDef(LVersion[0], 0);
 
   if LVersion.Count > 1 then
-    self.FMinor := StrToIntDef(LVersion[1],0);
+    Self.FMinor := StrToIntDef(LVersion[1], 0);
 
   if LVersion.Count > 2 then
-    self.FRelease := StrToIntDef(LVersion[2],0);
+    Self.FRelease := StrToIntDef(LVersion[2], 0);
 
   if LVersion.Count > 3 then
-    self.FBuild := StrToIntDef(LVersion[3],0);
+    Self.FBuild := StrToIntDef(LVersion[3], 0);
 
   FreeAndNil(LVersion);
 end;

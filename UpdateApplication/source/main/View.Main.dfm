@@ -16,20 +16,21 @@ object FrmMain: TFrmMain
   OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
-  object StringGrid1: TStringGrid
+  object SgApp: TStringGrid
     Left = 0
     Top = 73
     Width = 705
     Height = 289
     Align = alClient
-    ColCount = 1
+    ColCount = 2
     DefaultColWidth = 100
     FixedCols = 0
     RowCount = 2
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goRowSelect]
     TabOrder = 0
     ColWidths = (
-      179)
+      100
+      100)
     RowHeights = (
       24
       24)

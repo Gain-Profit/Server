@@ -6,7 +6,7 @@ uses
   Model.Main, DbUtils, ApiUtils, System.DateUtils, System.SysUtils;
 
 type
-  TProci = reference to procedure (msg: string);
+  TProci = reference to procedure(msg: string);
 
   TViewModelMain = class
   private
@@ -33,8 +33,9 @@ implementation
 const
   BASE_URL = 'https://gain-profit-update.firebaseio.com';
   PATH_CLIENT = 'clients/';
+  PATH_APPLICATION = 'profit';
 
-{ TViewModelMain }
+  { TViewModelMain }
 
 constructor TViewModelMain.Create;
 begin
@@ -60,7 +61,7 @@ var
   LStart: TDate;
 begin
   // let's start from 2015
-  LStart := EncodeDate(2015,1,1);
+  LStart := EncodeDate(2015, 1, 1);
   Result := DaysBetween(LStart, Date);
 end;
 
