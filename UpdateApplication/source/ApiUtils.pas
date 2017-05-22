@@ -3,7 +3,7 @@ unit ApiUtils;
 interface
 
 uses
-  REST.Client, System.SysUtils;
+  REST.Client, System.SysUtils, REST.Json;
 
 Type
   TFirebaseApi = class
@@ -15,6 +15,7 @@ Type
     constructor Create(const ABaseApiURL: string);
     destructor Destroy;
     function Get(const APath: string): string;
+    function GetAsT<T: class, constructor>(const APath: string): T;
     procedure GetAsync(const APath: string; AProc : TProc = nil);
   end;
 
@@ -48,6 +49,13 @@ begin
   FRequest.Resource := APath + '.json';
   FRequest.Execute;
   Result := FResponse.JSONText;
+end;
+
+function TFirebaseApi.GetAsT<T>(const APath: string): T;
+begin
+  FRequest.Resource := APath + '.json';
+  FRequest.Execute;
+  Result := TJson.JsonToObject<T>(FResponse.JSONText);
 end;
 
 procedure TFirebaseApi.GetAsync(const APath: string; AProc: TProc);
