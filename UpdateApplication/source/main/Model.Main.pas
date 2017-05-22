@@ -2,7 +2,7 @@ unit Model.Main;
 
 interface
   uses
-    Classes, System.SysUtils;
+    Classes, System.SysUtils, System.DateUtils;
 
 type
   TClient = class(TObject)
@@ -14,6 +14,7 @@ type
   public
     constructor Create; overload;
     constructor Create(AKode, ANama, AAlamat: string; AExpired: LongInt); overload;
+    function GetExpiredDate: TDate;
   published
     property Kode: string read FKode write FKode;
     property Nama: string read FNama write FNama;
@@ -71,6 +72,14 @@ begin
   FNama := ANama;
   FAlamat := AAlamat;
   FExpired := AExpired;
+end;
+
+function TClient.GetExpiredDate: TDate;
+var
+  LStart: TDate;
+begin
+  LStart:= EncodeDate(2015, 1, 1);
+  Result := IncDay(LStart, FExpired);
 end;
 
 constructor TClient.Create;
