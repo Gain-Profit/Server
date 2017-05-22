@@ -42,6 +42,7 @@ type
     procedure FormDestroy(Sender: TObject);
   private
     FVm: TViewModelMain;
+    FAppPath: string;
     { Private declarations }
   public
     { Public declarations }
@@ -62,8 +63,13 @@ begin
 end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);
+var
+  LPath: string;
 begin
-  FVm := TViewModelMain.Create;
+  LPath := ExtractFilePath(Application.ExeName);
+  FAppPath := ExtractFilePath(ExcludeTrailingBackslash(LPath)) + 'GAIN PROFIT';
+
+  FVm := TViewModelMain.Create(FAppPath);
   FVm.Api.Adapter.Dataset := DataSet;
   FVm.SetOnShowMessage(
     procedure(msg: string)

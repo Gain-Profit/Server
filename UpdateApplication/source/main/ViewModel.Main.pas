@@ -13,13 +13,14 @@ type
     FDb: TDatabase;
     FApi: TFirebaseApi;
     FClient: TClient;
+    FAppPath: string;
     FOnShowMessage: TProci;
     FOnLoadClient: TProc<TClient>;
     FStarted: Boolean;
     function GetClient: TClient;
     function GetNow: LongInt;
   public
-    constructor Create;
+    constructor Create(LPath: string);
     destructor Destroy;
     procedure Start;
     procedure SetOnShowMessage(AProc: TProci);
@@ -38,8 +39,9 @@ const
 
   { TViewModelMain }
 
-constructor TViewModelMain.Create;
+constructor TViewModelMain.Create(LPath: string);
 begin
+  FAppPath := LPath;
   FClient := TClient.Create;
   FApi := TFirebaseApi.Create(BASE_URL);
   FDb := TDatabase.Create;
