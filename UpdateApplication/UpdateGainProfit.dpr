@@ -5,7 +5,8 @@ uses
   View.Main in 'source\main\View.Main.pas' {FrmMain},
   Model.Main in 'source\main\Model.Main.pas',
   ApiUtils in 'source\ApiUtils.pas',
-  ViewModel.Main in 'source\main\ViewModel.Main.pas';
+  ViewModel.Main in 'source\main\ViewModel.Main.pas',
+  DbUtils in 'source\DbUtils.pas';
 
 {$R *.res}
 
