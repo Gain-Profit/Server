@@ -56,7 +56,9 @@ implementation
 
 procedure TFrmMain.BtnCekUpdateClick(Sender: TObject);
 begin
+  Screen.Cursor := crHourGlass;
   FVm.Start;
+  Screen.Cursor := crDefault;
 end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);
