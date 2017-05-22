@@ -4,8 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, ApiUtils, Vcl.ComCtrls,
-  Vcl.StdCtrls, Vcl.ExtCtrls,IPPeerClient, ViewModel.Main;
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.ComCtrls,
+  Vcl.StdCtrls, Vcl.ExtCtrls, ViewModel.Main;
 
 type
   TFrmMain = class(TForm)
@@ -31,10 +31,6 @@ implementation
 {$R *.dfm}
 
 procedure TFrmMain.BtnCekUpdateClick(Sender: TObject);
-var
-  Expired: TDate;
-  Hasil : string;
-  LRes : TFirebaseApi;
 begin
   FVm.Start('ps001');
   ShowMessage(FVm.Client.Nama);
