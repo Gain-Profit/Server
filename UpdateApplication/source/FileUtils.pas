@@ -3,10 +3,10 @@ unit FileUtils;
 interface
 
 uses
-  Windows, SysUtils;
+  Windows, SysUtils, SHFolder;
 
 function AppVersion(exeName: string): string;
-
+function GetAppDataFolder: string;
 
 implementation
 
@@ -31,6 +31,16 @@ begin
   FreeMem(VerInfo, VerInfoSize);
 
   Result := IntToStr(V1) + '.' + IntToStr(V2) + '.' + IntToStr(V3) + '.' + IntToStr(V4);
+end;
+
+function GetAppDataFolder: string;
+var
+  path: array[0..MAX_PATH] of Char;
+begin
+  if Succeeded(SHGetFolderPath(0, CSIDL_COMMON_APPDATA, 0, 0, @Path[0])) then
+    Result := path + '\Gain Profit\'
+  else
+    Result := '';
 end;
 
 end.
