@@ -25,6 +25,7 @@ type
     constructor Create(LPath: string);
     destructor Destroy;
     procedure Start;
+    procedure Update;
     procedure SetOnShowMessage(AProc: TProci);
     procedure SetOnLoadClient(AProc: TProc<TClient>);
   published
@@ -128,14 +129,18 @@ begin
   if (Assigned(FOnLoadClient)) then
     FOnLoadClient(FClient);
 
-  if FClient.Expired < GetNow then
-  begin
-    FOnShowMessage('Masa Garansi Sudah Expired');
-    Exit;
-  end;
-
   FApi.GetToAdapter(PATH_APPLICATION);
   GetFileVersion;
+end;
+
+procedure TViewModelMain.Update;
+begin
+  if FClient.Expired < GetNow then
+  begin
+    FOnShowMessage('Masa Garansi Sudah Expired pada: ' +
+      FormatDateTime('dd MMM yyyy', FClient.GetExpiredDate));
+    Exit;
+  end;
 end;
 
 end.

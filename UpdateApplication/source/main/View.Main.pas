@@ -42,6 +42,7 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure SgAppDrawCell(Sender: TObject; ACol, ARow: Integer; Rect: TRect;
       State: TGridDrawState);
+    procedure BtnUpdateClick(Sender: TObject);
   private
     FVm: TViewModelMain;
     FAppPath: string;
@@ -62,6 +63,14 @@ begin
   Screen.Cursor := crHourGlass;
   BtnUpdate.Enabled := False;
   FVm.Start;
+  Screen.Cursor := crDefault;
+end;
+
+procedure TFrmMain.BtnUpdateClick(Sender: TObject);
+begin
+  Screen.Cursor := crHourGlass;
+  FVm.Update;
+  BtnUpdate.Enabled := False;
   Screen.Cursor := crDefault;
 end;
 

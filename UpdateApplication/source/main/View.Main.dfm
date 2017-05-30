@@ -139,6 +139,7 @@ object FrmMain: TFrmMain
       Anchors = [akTop, akRight]
       Caption = 'Update'
       TabOrder = 1
+      OnClick = BtnUpdateClick
     end
   end
   object DataSet: TClientDataSet
