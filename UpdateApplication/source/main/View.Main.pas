@@ -60,6 +60,7 @@ implementation
 procedure TFrmMain.BtnCekUpdateClick(Sender: TObject);
 begin
   Screen.Cursor := crHourGlass;
+  BtnUpdate.Enabled := False;
   FVm.Start;
   Screen.Cursor := crDefault;
 end;
@@ -68,6 +69,7 @@ procedure TFrmMain.FormCreate(Sender: TObject);
 var
   LPath: string;
 begin
+  BtnUpdate.Enabled := False;
   LPath := ExtractFilePath(Application.ExeName);
   FAppPath := ExtractFilePath(ExcludeTrailingBackslash(LPath)) + 'GAIN PROFIT';
 
@@ -108,6 +110,7 @@ begin
       SgApp.Canvas.Brush.Color := clLime;
       SgApp.Canvas.FillRect(Rect);
       SgApp.Canvas.TextRect(Rect, Rect.Left, Rect.top, SgApp.Cells[ACol,ARow]);
+      BtnUpdate.Enabled := True;
     end;
   end;
 end;
