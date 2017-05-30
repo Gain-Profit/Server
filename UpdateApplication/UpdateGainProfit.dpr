@@ -6,7 +6,8 @@ uses
   Model.Main in 'source\main\Model.Main.pas',
   ApiUtils in 'source\ApiUtils.pas',
   ViewModel.Main in 'source\main\ViewModel.Main.pas',
-  DbUtils in 'source\DbUtils.pas';
+  DbUtils in 'source\DbUtils.pas',
+  FileUtils in 'source\FileUtils.pas';
 
 {$R *.res}
 
