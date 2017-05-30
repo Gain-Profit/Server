@@ -3,7 +3,8 @@ unit ViewModel.Main;
 interface
 
 uses
-  Model.Main, DbUtils, ApiUtils, System.DateUtils, System.SysUtils;
+  Model.Main, DbUtils, ApiUtils, System.DateUtils, System.SysUtils,
+  FileUtils, Data.DB;
 
 type
   TProci = reference to procedure(msg: string);
@@ -19,6 +20,7 @@ type
     FStarted: Boolean;
     function GetClient: TClient;
     function GetNow: LongInt;
+    procedure GetFileVersion;
   public
     constructor Create(LPath: string);
     destructor Destroy;
@@ -57,6 +59,33 @@ end;
 function TViewModelMain.GetClient: TClient;
 begin
   Result := FClient;
+end;
+
+procedure TViewModelMain.GetFileVersion;
+var
+  i: Integer;
+  Data: TDataSet;
+  AppFile: TFileName;
+  FileVersion: string;
+begin
+  Data := FApi.Adapter.Dataset;
+  Data.First;
+  for i := 0 to Pred(Data.RecordCount) do
+  begin
+    AppFile := FAppPath + Data.FieldByName('path').AsString +
+    Data.FieldByName('nama').AsString;
+
+    if FileExists(AppFile) then
+    begin
+      FileVersion := AppVersion(AppFile);
+      Data.Edit;
+      Data.FieldByName('versi_now').AsString := FileVersion;
+      Data.Post;
+    end;
+
+    Data.Next;
+  end;
+
 end;
 
 function TViewModelMain.GetNow: LongInt;
@@ -106,6 +135,7 @@ begin
   end;
 
   FApi.GetToAdapter(PATH_APPLICATION);
+  GetFileVersion;
 end;
 
 end.

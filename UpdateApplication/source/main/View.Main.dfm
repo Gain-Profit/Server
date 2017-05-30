@@ -175,9 +175,7 @@ object FrmMain: TFrmMain
     end
     object DataSetversi_now: TStringField
       DisplayLabel = 'Versi Sekarang'
-      FieldKind = fkCalculated
       FieldName = 'versi_now'
-      Calculated = True
     end
   end
   object BindSourceDB1: TBindSourceDB
