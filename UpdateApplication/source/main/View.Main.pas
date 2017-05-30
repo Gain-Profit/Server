@@ -40,6 +40,8 @@ type
     procedure BtnCekUpdateClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure SgAppDrawCell(Sender: TObject; ACol, ARow: Integer; Rect: TRect;
+      State: TGridDrawState);
   private
     FVm: TViewModelMain;
     FAppPath: string;
@@ -90,6 +92,24 @@ end;
 procedure TFrmMain.FormDestroy(Sender: TObject);
 begin
   FVm.Free;
+end;
+
+procedure TFrmMain.SgAppDrawCell(Sender: TObject; ACol, ARow: Integer;
+  Rect: TRect; State: TGridDrawState);
+var
+  LNewVersion, LCurrentVersion : string;
+begin
+  if not(ARow= 0) then
+  begin
+    LCurrentVersion := SgApp.Cells[2, ARow];
+    LNewVersion := SgApp.Cells[3, ARow];
+    if not (LCurrentVersion = LNewVersion) then
+    begin
+      SgApp.Canvas.Brush.Color := clLime;
+      SgApp.Canvas.FillRect(Rect);
+      SgApp.Canvas.TextRect(Rect, Rect.Left, Rect.top, SgApp.Cells[ACol,ARow]);
+    end;
+  end;
 end;
 
 end.

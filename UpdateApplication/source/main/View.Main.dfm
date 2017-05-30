@@ -25,18 +25,17 @@ object FrmMain: TFrmMain
     Align = alClient
     ColCount = 4
     DefaultColWidth = 100
+    DefaultRowHeight = 18
     FixedCols = 0
     RowCount = 2
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goRowSelect]
     TabOrder = 0
+    OnDrawCell = SgAppDrawCell
     ColWidths = (
       150
       75
       100
       100)
-    RowHeights = (
-      24
-      24)
   end
   object PnlHeader: TPanel
     Left = 0
