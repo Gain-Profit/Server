@@ -15,6 +15,7 @@ type
     FApi: TFirebaseApi;
     FClient: TClient;
     FAppPath: string;
+    FAppTempPath: string;
     FOnShowMessage: TProci;
     FOnLoadClient: TProc<TClient>;
     FStarted: Boolean;
@@ -22,7 +23,7 @@ type
     function GetNow: LongInt;
     procedure GetFileVersion;
   public
-    constructor Create(LPath: string);
+    constructor Create(LPath: string; LTempPath: string);
     destructor Destroy;
     procedure Start;
     procedure Update;
@@ -42,9 +43,11 @@ const
 
   { TViewModelMain }
 
-constructor TViewModelMain.Create(LPath: string);
+constructor TViewModelMain.Create(LPath: string; LTempPath: string);
 begin
   FAppPath := LPath;
+  FAppTempPath := LTempPath;
+
   FClient := TClient.Create;
   FApi := TFirebaseApi.Create(BASE_URL);
   FDb := TDatabase.Create;
@@ -135,6 +138,11 @@ end;
 
 procedure TViewModelMain.Update;
 begin
+  if not(DirectoryExists(FAppTempPath)) then
+  begin
+    CreateDir(FAppTempPath);
+  end;
+
   if FClient.Expired < GetNow then
   begin
     FOnShowMessage('Masa Garansi Sudah Expired pada: ' +

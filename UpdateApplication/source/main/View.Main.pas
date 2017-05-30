@@ -9,7 +9,7 @@ uses
   Data.Bind.EngExt, Vcl.Bind.DBEngExt, Vcl.Bind.Grid, System.Rtti,
   System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components,
   Data.Bind.Grid, Data.Bind.DBScope, Data.DB, Datasnap.DBClient,
-  REST.Response.Adapter;
+  REST.Response.Adapter, FileUtils;
 
 type
   TFrmMain = class(TForm)
@@ -45,7 +45,8 @@ type
     procedure BtnUpdateClick(Sender: TObject);
   private
     FVm: TViewModelMain;
-    FAppPath: string;
+    FAppPath: string; // path application to be check.
+    FTempAppPath: string; // path temporary file downloaded.
     { Private declarations }
   public
     { Public declarations }
@@ -81,8 +82,9 @@ begin
   BtnUpdate.Enabled := False;
   LPath := ExtractFilePath(Application.ExeName);
   FAppPath := ExtractFilePath(ExcludeTrailingBackslash(LPath)) + 'GAIN PROFIT';
+  FTempAppPath := GetAppDataFolder + 'APP_TEMP';
 
-  FVm := TViewModelMain.Create(FAppPath);
+  FVm := TViewModelMain.Create(FAppPath, FTempAppPath);
   FVm.Api.Adapter.Dataset := DataSet;
   FVm.SetOnShowMessage(
     procedure(msg: string)
