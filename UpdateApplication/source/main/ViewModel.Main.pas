@@ -52,6 +52,7 @@ type
     procedure DoEndDownload(const AsyncResult: IAsyncResult);
     procedure ReceiveDataEvent(const Sender: TObject; AContentLength,
       AReadCount: Int64; var Abort: Boolean);
+    procedure ExtractDownloadedFile;
   public
     constructor Create(LPath: string; LTempPath: string);
     destructor Destroy;
@@ -240,8 +241,7 @@ begin
 
   if FileExists(LFileName) then
   begin
-    FApplicationData.Next;
-    CheckApplication;
+    ExtractDownloadedFile;
     Exit;
   end;
 
@@ -291,9 +291,39 @@ begin
   finally
     LAsyncResponse := nil;
     FreeandNil(FDownloadStream);
-    FApplicationData.Next;
-    CheckApplication;
+    ExtractDownloadedFile;
   end;
+end;
+
+procedure TViewModelMain.ExtractDownloadedFile;
+var
+  LNama: string;
+  LUrl: string;
+  LPath: string;
+  LZipFileName: string;
+  LFileName: string;
+begin
+  LNama := FApplicationData.FieldByName('nama').AsString;
+  LUrl:= FApplicationData.FieldByName('download').AsString;
+  LPath:= FApplicationData.FieldByName('path').AsString;
+
+  LZipFileName := TPath.Combine(FAppTempPath, TPath.GetFileName(LUrl));
+  LFileName := FAppPath + LPath + LNama;
+
+  try
+    ExtractZipFile(LZipFileName, LFileName);
+
+    FApplicationData.Edit;
+    FApplicationData.FieldByName('versi_now').AsString :=
+      FApplicationData.FieldByName('versi').AsString;
+    FApplicationData.Post;
+  except
+  on e: Exception do
+    FOnShowMessage(Format('Extract File Gagal, %s', [e.Message]));
+  end;
+
+  FApplicationData.Next;
+  CheckApplication;
 end;
 
 end.
