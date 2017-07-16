@@ -263,7 +263,6 @@ begin
       FOnMaxProgressChange(AContentLength);
       FOnProgressChange(AReadCount, Format(' %d KB/dtk - %d KB dari %d KB',
       [LSpeed div 1024, AReadCount div 1024, AContentLength div 1024]));
-      end;
     end);
 end;
 
@@ -276,12 +275,9 @@ begin
     TThread.Synchronize(nil,
       procedure
       begin
-        if LAsyncResponse.StatusCode = 200 then
+        if not(LAsyncResponse.StatusCode = 200) then
         begin
-          FOnProgressChange(0, Format('Download Complete, Total: %d KB',
-              [LAsyncResponse.ContentLength div 1024]));
-        end else
-        begin
+          FOnShowMessage(Format('Download Gagal, %s', [LAsyncResponse.StatusText]));
         end;
       end);
   finally
