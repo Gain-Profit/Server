@@ -15,7 +15,6 @@ type
   TFrmMain = class(TForm)
     SgApp: TStringGrid;
     PnlHeader: TPanel;
-    StatusBar1: TStatusBar;
     PnlFooter: TPanel;
     BtnCekUpdate: TButton;
     BtnUpdate: TButton;

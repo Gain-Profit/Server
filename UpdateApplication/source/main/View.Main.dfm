@@ -22,7 +22,7 @@ object FrmMain: TFrmMain
     Left = 3
     Top = 82
     Width = 699
-    Height = 224
+    Height = 243
     Align = alClient
     ColCount = 4
     DefaultColWidth = 100
@@ -32,6 +32,7 @@ object FrmMain: TFrmMain
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goRowSelect]
     TabOrder = 0
     OnDrawCell = SgAppDrawCell
+    ExplicitHeight = 224
     ColWidths = (
       150
       75
@@ -115,21 +116,15 @@ object FrmMain: TFrmMain
       TabOrder = 3
     end
   end
-  object StatusBar1: TStatusBar
-    Left = 0
-    Top = 397
-    Width = 705
-    Height = 19
-    Panels = <>
-  end
   object PnlFooter: TPanel
     AlignWithMargins = True
     Left = 3
-    Top = 359
+    Top = 378
     Width = 699
     Height = 35
     Align = alBottom
-    TabOrder = 3
+    TabOrder = 2
+    ExplicitTop = 359
     DesignSize = (
       699
       35)
@@ -156,12 +151,13 @@ object FrmMain: TFrmMain
   object PnlDownload: TPanel
     AlignWithMargins = True
     Left = 3
-    Top = 312
+    Top = 331
     Width = 699
     Height = 41
     Align = alBottom
-    TabOrder = 4
+    TabOrder = 3
     Visible = False
+    ExplicitTop = 312
     object LblDownload: TLabel
       AlignWithMargins = True
       Left = 4

@@ -1,12 +1,9 @@
 ﻿[]
-Coordinates=332,133,60,36
+Coordinates=10,190,68,51
 Visible=False
 
 [PnlHeader]
 Coordinates=10,70,65,51
-
-[StatusBar1]
-Coordinates=10,190,68,51
 
 [BtnCekUpdate]
 Coordinates=560,140,85,51
