@@ -118,9 +118,8 @@ begin
     LNewVersion := SgApp.Cells[3, ARow];
     if not (LCurrentVersion = LNewVersion) then
     begin
-      SgApp.Canvas.Brush.Color := clLime;
-      SgApp.Canvas.FillRect(Rect);
-      SgApp.Canvas.TextRect(Rect, Rect.Left, Rect.top, SgApp.Cells[ACol,ARow]);
+      TStringGrid(Sender).Canvas.Font.Color := clRed;
+      TStringGrid(Sender).Canvas.TextRect(Rect, Rect.Left, Rect.top, SgApp.Cells[ACol,ARow]);
       BtnUpdate.Enabled := True;
     end;
   end;
