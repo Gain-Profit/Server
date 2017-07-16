@@ -14,7 +14,7 @@ Type
     FResponse: TRESTResponse;
     FAdapter: TRESTResponseDataSetAdapter;
   public
-    constructor Create(const ABaseApiURL: string);
+    constructor Create(const ABaseApiURL: string; ARootElement: string = '');
     destructor Destroy;
     function Get(const APath: string): string;
     function GetAsT<T: class, constructor>(const APath: string): T;
@@ -28,7 +28,7 @@ implementation
 
 { TRestApi }
 
-constructor TFirebaseApi.Create(const ABaseApiURL: string);
+constructor TFirebaseApi.Create(const ABaseApiURL: string; ARootElement: string = '');
 begin
   FClient := TRESTClient.Create(ABaseApiURL);
   FClient.Accept := 'application/json, text/plain; q=0.9, text/html;q=0.8,';
@@ -37,6 +37,7 @@ begin
 
   FResponse := TRESTResponse.Create(FClient);
   FResponse.ContentType := 'application/json';
+  FResponse.RootElement := ARootElement;
 
   FRequest := TRESTRequest.Create(FClient);
   FRequest.Client := FClient;
