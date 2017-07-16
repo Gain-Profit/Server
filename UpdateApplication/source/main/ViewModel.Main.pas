@@ -237,6 +237,14 @@ begin
   end;
 
   LFileName := TPath.Combine(FAppTempPath, TPath.GetFileName(AUrl));
+
+  if FileExists(LFileName) then
+  begin
+    FApplicationData.Next;
+    CheckApplication;
+    Exit;
+  end;
+
   try
     FDownloadStream := TFileStream.Create(LFileName, fmCreate);
     FDownloadStream.Position := 0;
