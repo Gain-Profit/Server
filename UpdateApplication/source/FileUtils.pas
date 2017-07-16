@@ -6,11 +6,13 @@ uses
   WinApi.Windows,
   System.SysUtils,
   WinApi.SHFolder,
-  WinApi.TlHelp32;
+  WinApi.TlHelp32,
+  AbUnzper;
 
 function AppVersion(exeName: string): string;
 function GetAppDataFolder: string;
 function ProcessExists(exeFileName: string): Boolean;
+procedure ExtractZipFile(AZipFile: string; ADestFile: string);
 
 implementation
 
@@ -68,4 +70,16 @@ begin
   end;
   CloseHandle(FSnapshotHandle);
 end;
+
+procedure ExtractZipFile(AZipFile: string; ADestFile: string);
+var
+  UnZip : TAbUnZipper;
+begin
+  UnZip := TAbUnZipper.Create(nil);
+  UnZip.FileName := AZipFile;
+  UnZip.ExtractAt(0, ADestFile);
+  UnZip.CloseArchive;
+  UnZip.Free;
+end;
+
 end.
