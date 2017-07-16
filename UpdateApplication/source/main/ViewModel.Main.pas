@@ -3,11 +3,26 @@ unit ViewModel.Main;
 interface
 
 uses
-  Model.Main, DbUtils, ApiUtils, System.DateUtils, System.SysUtils,
-  FileUtils, Data.DB;
+  System.Types,
+  System.IOUtils,
+  System.Classes,
+  System.SysUtils,
+  System.UITypes,
+  System.Variants,
+  System.DateUtils,
+  System.Net.URLClient,
+  System.Net.HttpClient,
+  System.Net.HttpClientComponent,
+  Model.Main,
+  DbUtils,
+  ApiUtils,
+  FileUtils,
+  Data.DB;
 
 type
   TProci = reference to procedure(msg: string);
+  TProcInt = reference to procedure(AValue: Integer);
+  TProcIntMsg = reference to procedure(AValue: Integer; AMsg: string);
 
   TViewModelMain = class
   private
@@ -19,11 +34,24 @@ type
     FAppTempPath: string;
     FOnShowMessage: TProci;
     FOnLoadClient: TProc<TClient>;
+    FOnProgressChange: TProcIntMsg;
+    FOnMaxProgressChange: TProcInt;
     FStarted: Boolean;
     FApplicationData: TDataSet;
+    FDownload: THTTPClient;
+
+    FDownloadStream: TStream;
+    FGlobalStart: Cardinal;
+    FAsyncResult: IAsyncResult;
+
     function GetClient: TClient;
     function GetNow: LongInt;
     procedure GetFileVersion;
+    procedure CheckApplication;
+    procedure UpdateApplication(AFileName, AUrl: string);
+    procedure DoEndDownload(const AsyncResult: IAsyncResult);
+    procedure ReceiveDataEvent(const Sender: TObject; AContentLength,
+      AReadCount: Int64; var Abort: Boolean);
   public
     constructor Create(LPath: string; LTempPath: string);
     destructor Destroy;
@@ -31,6 +59,8 @@ type
     procedure Update;
     procedure SetOnShowMessage(AProc: TProci);
     procedure SetOnLoadClient(AProc: TProc<TClient>);
+    procedure OnMaxProgressChange(AProc: TProcInt);
+    procedure OnProgressChange(AProc: TProcIntMsg);
   published
     property Client: TClient read GetClient;
     property Api: TFirebaseApi read FApiApplication;
@@ -56,6 +86,9 @@ begin
   FApiApplication := TFirebaseApi.Create(BASE_APPLICATION_URL, 'profit');
 
   FDb := TDatabase.Create;
+
+  FDownload := THTTPClient.Create;
+  FDownload.OnReceiveData := ReceiveDataEvent;
 end;
 
 destructor TViewModelMain.Destroy;
@@ -63,6 +96,7 @@ begin
   FClient.Free;
   FApi.Free;
   FDb.Free;
+  FDownload.Free;
 end;
 
 function TViewModelMain.GetClient: TClient;
@@ -102,6 +136,16 @@ begin
   // let's start from 2015
   LStart := EncodeDate(2015, 1, 1);
   Result := DaysBetween(LStart, Date);
+end;
+
+procedure TViewModelMain.OnMaxProgressChange(AProc: TProcInt);
+begin
+  FOnMaxProgressChange := AProc;
+end;
+
+procedure TViewModelMain.OnProgressChange(AProc: TProcIntMsg);
+begin
+  FOnProgressChange := AProc;
 end;
 
 procedure TViewModelMain.SetOnLoadClient(AProc: TProc<TClient>);
@@ -152,6 +196,103 @@ begin
     FOnShowMessage('Masa Garansi Sudah Expired pada: ' +
       FormatDateTime('dd MMM yyyy', FClient.GetExpiredDate));
     Exit;
+  end;
+
+  FApplicationData.First;
+  CheckApplication;
+end;
+
+procedure TViewModelMain.CheckApplication;
+var
+  LNama: string;
+  LVersiOnline: string;
+  LVersiOffline: string;
+  LUrl: string;
+begin
+  if (FApplicationData.RecNo = FApplicationData.RecordCount) then Exit;
+
+  LNama := FApplicationData.FieldByName('nama').AsString;
+  LUrl:= FApplicationData.FieldByName('download').AsString;
+  LVersiOnline := FApplicationData.FieldByName('versi').AsString;
+  LVersiOffline:= FApplicationData.FieldByName('versi_now').AsString;
+
+  if not SameStr(LVersiOnline, LVersiOffline) then
+  begin
+    UpdateApplication(LNama, LUrl);
+  end else
+  begin
+    FApplicationData.Next;
+    CheckApplication;
+  end;
+end;
+
+procedure TViewModelMain.UpdateApplication(AFileName, AUrl: string);
+var
+  LFileName: string;
+begin
+  if ProcessExists(AFileName) then
+  begin
+    FOnShowMessage('Tidak Bisa Update, Applikasi ' + AFileName + ' masih berjalan');
+    Exit;
+  end;
+
+  LFileName := TPath.Combine(FAppTempPath, TPath.GetFileName(AUrl));
+  try
+    FDownloadStream := TFileStream.Create(LFileName, fmCreate);
+    FDownloadStream.Position := 0;
+
+    FGlobalStart := TThread.GetTickCount;
+
+    // Start the download process
+    FAsyncResult := FDownload.BeginGet(DoEndDownload, AUrl, FDownloadStream);
+  finally
+//    FAsyncResult;
+  end;
+end;
+
+procedure TViewModelMain.ReceiveDataEvent(const Sender: TObject; AContentLength, AReadCount: Int64;
+  var Abort: Boolean);
+var
+  LTime: Cardinal;
+  LSpeed: Integer;
+begin
+  LTime := TThread.GetTickCount - FGlobalStart;
+  LSpeed := (AReadCount * 1000) div LTime;
+  TThread.Queue(nil,
+    procedure
+    begin
+      FOnMaxProgressChange(AContentLength);
+      FOnProgressChange(AReadCount, Format(' %d KB/dtk - %d KB dari %d KB',
+      [LSpeed div 1024, AReadCount div 1024, AContentLength div 1024]));
+
+      if (AReadCount = AContentLength) then
+      begin
+        FApplicationData.Next;
+        CheckApplication;
+      end;
+    end);
+end;
+
+procedure TViewModelMain.DoEndDownload(const AsyncResult: IAsyncResult);
+var
+  LAsyncResponse: IHTTPResponse;
+begin
+  try
+    LAsyncResponse := THTTPClient.EndAsyncHTTP(AsyncResult);
+    TThread.Synchronize(nil,
+      procedure
+      begin
+        if LAsyncResponse.StatusCode = 200 then
+        begin
+          FOnProgressChange(0, Format('Download Complete, Total: %d KB',
+              [LAsyncResponse.ContentLength div 1024]));
+        end else
+        begin
+        end;
+      end);
+  finally
+    LAsyncResponse := nil;
+    FreeandNil(FDownloadStream);
   end;
 end;
 
