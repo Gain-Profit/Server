@@ -118,6 +118,9 @@ begin
     begin
       LblDownload.Caption := AMsg;
       PbDownload.Position := AValue;
+      if (PbDownload.Position = PbDownload.Max) then
+        PnlDownload.Visible := False else
+        PnlDownload.Visible := True;
     end
   );
 end;

@@ -161,6 +161,7 @@ object FrmMain: TFrmMain
     Height = 41
     Align = alBottom
     TabOrder = 4
+    Visible = False
     object LblDownload: TLabel
       AlignWithMargins = True
       Left = 4
@@ -168,8 +169,8 @@ object FrmMain: TFrmMain
       Width = 691
       Height = 13
       Align = alTop
-      Caption = '40 KK/dtk -  49 MB dari 100 MB'
-      ExplicitWidth = 147
+      Caption = 'Download ...'
+      ExplicitWidth = 62
     end
     object PbDownload: TProgressBar
       AlignWithMargins = True
@@ -177,6 +178,7 @@ object FrmMain: TFrmMain
       Top = 20
       Width = 691
       Height = 17
+      Margins.Top = 0
       Align = alBottom
       TabOrder = 0
     end
