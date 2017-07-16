@@ -18,10 +18,11 @@ object FrmMain: TFrmMain
   TextHeight = 13
   object SgApp: TStringGrid
     Tag = 4
-    Left = 0
-    Top = 73
-    Width = 705
-    Height = 289
+    AlignWithMargins = True
+    Left = 3
+    Top = 82
+    Width = 699
+    Height = 224
     Align = alClient
     ColCount = 4
     DefaultColWidth = 100
@@ -41,12 +42,16 @@ object FrmMain: TFrmMain
       18)
   end
   object PnlHeader: TPanel
-    Left = 0
-    Top = 0
-    Width = 705
+    AlignWithMargins = True
+    Left = 3
+    Top = 3
+    Width = 699
     Height = 73
     Align = alTop
     TabOrder = 1
+    DesignSize = (
+      699
+      73)
     object Label1: TLabel
       Left = 8
       Top = 16
@@ -96,6 +101,7 @@ object FrmMain: TFrmMain
       Top = 13
       Width = 419
       Height = 21
+      Anchors = [akLeft, akTop, akRight]
       Enabled = False
       TabOrder = 2
     end
@@ -104,6 +110,7 @@ object FrmMain: TFrmMain
       Top = 40
       Width = 419
       Height = 21
+      Anchors = [akLeft, akTop, akRight]
       Enabled = False
       TabOrder = 3
     end
@@ -116,14 +123,15 @@ object FrmMain: TFrmMain
     Panels = <>
   end
   object PnlFooter: TPanel
-    Left = 0
-    Top = 362
-    Width = 705
+    AlignWithMargins = True
+    Left = 3
+    Top = 359
+    Width = 699
     Height = 35
     Align = alBottom
     TabOrder = 3
     DesignSize = (
-      705
+      699
       35)
     object BtnCekUpdate: TButton
       Left = 8
@@ -135,7 +143,7 @@ object FrmMain: TFrmMain
       OnClick = BtnCekUpdateClick
     end
     object BtnUpdate: TButton
-      Left = 621
+      Left = 615
       Top = 4
       Width = 75
       Height = 25
@@ -143,6 +151,34 @@ object FrmMain: TFrmMain
       Caption = 'Update'
       TabOrder = 1
       OnClick = BtnUpdateClick
+    end
+  end
+  object PnlDownload: TPanel
+    AlignWithMargins = True
+    Left = 3
+    Top = 312
+    Width = 699
+    Height = 41
+    Align = alBottom
+    TabOrder = 4
+    object LblDownload: TLabel
+      AlignWithMargins = True
+      Left = 4
+      Top = 4
+      Width = 691
+      Height = 13
+      Align = alTop
+      Caption = '40 KK/dtk -  49 MB dari 100 MB'
+      ExplicitWidth = 147
+    end
+    object PbDownload: TProgressBar
+      AlignWithMargins = True
+      Left = 4
+      Top = 20
+      Width = 691
+      Height = 17
+      Align = alBottom
+      TabOrder = 0
     end
   end
   object DataSet: TClientDataSet

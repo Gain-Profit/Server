@@ -37,6 +37,9 @@ type
     DataSetDownload: TStringField;
     DataSetMd5: TStringField;
     DataSetversi_now: TStringField;
+    PnlDownload: TPanel;
+    PbDownload: TProgressBar;
+    LblDownload: TLabel;
     procedure BtnCekUpdateClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -90,7 +93,8 @@ begin
     procedure(msg: string)
     begin
       ShowMessage(msg);
-    end);
+    end
+  );
 
   FVm.SetOnLoadClient(
     procedure(AClient: TClient)
@@ -99,7 +103,23 @@ begin
       EdNama.Text := AClient.Nama;
       EdAlamat.Text := AClient.Alamat;
       EdExpired.Text := FormatDateTime('dd/MM/yyyy', AClient.GetExpiredDate);
-    end);
+    end
+  );
+
+  FVm.OnMaxProgressChange(
+    procedure(AValue: Integer)
+    begin
+      PbDownload.Max := AValue;
+    end
+  );
+
+  FVm.OnProgressChange(
+    procedure(AValue: Integer; AMsg: string)
+    begin
+      LblDownload.Caption := AMsg;
+      PbDownload.Position := AValue;
+    end
+  );
 end;
 
 procedure TFrmMain.FormDestroy(Sender: TObject);
