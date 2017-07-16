@@ -13,6 +13,7 @@ type
   private
     FDb: TDatabase;
     FApi: TFirebaseApi;
+    FApiApplication: TFirebaseApi;
     FClient: TClient;
     FAppPath: string;
     FAppTempPath: string;
@@ -31,7 +32,7 @@ type
     procedure SetOnLoadClient(AProc: TProc<TClient>);
   published
     property Client: TClient read GetClient;
-    property Api: TFirebaseApi read FApi;
+    property Api: TFirebaseApi read FApiApplication;
   end;
 
 implementation
@@ -39,7 +40,8 @@ implementation
 const
   BASE_URL = 'https://gain-profit-update.firebaseio.com';
   PATH_CLIENT = 'clients/';
-  PATH_APPLICATION = 'profit';
+  BASE_APPLICATION_URL = 'http://gain-profit.github.io';
+  PATH_APPLICATION = 'updater';
 
   { TViewModelMain }
 
@@ -50,6 +52,8 @@ begin
 
   FClient := TClient.Create;
   FApi := TFirebaseApi.Create(BASE_URL);
+  FApiApplication := TFirebaseApi.Create(BASE_APPLICATION_URL, 'profit');
+
   FDb := TDatabase.Create;
 end;
 
@@ -72,7 +76,7 @@ var
   AppFile: TFileName;
   FileVersion: string;
 begin
-  Data := FApi.Adapter.Dataset;
+  Data := FApiApplication.Adapter.Dataset;
   Data.First;
   for i := 0 to Pred(Data.RecordCount) do
   begin
@@ -132,7 +136,7 @@ begin
   if (Assigned(FOnLoadClient)) then
     FOnLoadClient(FClient);
 
-  FApi.GetToAdapter(PATH_APPLICATION);
+  FApiApplication.GetToAdapter(PATH_APPLICATION);
   GetFileVersion;
 end;
 

@@ -36,6 +36,9 @@ object FrmMain: TFrmMain
       75
       100
       100)
+    RowHeights = (
+      18
+      18)
   end
   object PnlHeader: TPanel
     Left = 0
