@@ -20,6 +20,7 @@ type
     FOnShowMessage: TProci;
     FOnLoadClient: TProc<TClient>;
     FStarted: Boolean;
+    FApplicationData: TDataSet;
     function GetClient: TClient;
     function GetNow: LongInt;
     procedure GetFileVersion;
@@ -72,26 +73,24 @@ end;
 procedure TViewModelMain.GetFileVersion;
 var
   i: Integer;
-  Data: TDataSet;
   AppFile: TFileName;
   FileVersion: string;
 begin
-  Data := FApiApplication.Adapter.Dataset;
-  Data.First;
-  for i := 0 to Pred(Data.RecordCount) do
+  FApplicationData.First;
+  for i := 0 to Pred(FApplicationData.RecordCount) do
   begin
-    AppFile := FAppPath + Data.FieldByName('path').AsString +
-    Data.FieldByName('nama').AsString;
+    AppFile := FAppPath + FApplicationData.FieldByName('path').AsString +
+    FApplicationData.FieldByName('nama').AsString;
 
     if FileExists(AppFile) then
     begin
       FileVersion := AppVersion(AppFile);
-      Data.Edit;
-      Data.FieldByName('versi_now').AsString := FileVersion;
-      Data.Post;
+      FApplicationData.Edit;
+      FApplicationData.FieldByName('versi_now').AsString := FileVersion;
+      FApplicationData.Post;
     end;
 
-    Data.Next;
+    FApplicationData.Next;
   end;
 
 end;
@@ -137,6 +136,7 @@ begin
     FOnLoadClient(FClient);
 
   FApiApplication.GetToAdapter(PATH_APPLICATION);
+  FApplicationData := FApiApplication.Adapter.Dataset;
   GetFileVersion;
 end;
 
