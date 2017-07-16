@@ -3,10 +3,14 @@ unit FileUtils;
 interface
 
 uses
-  Windows, SysUtils, SHFolder;
+  WinApi.Windows,
+  System.SysUtils,
+  WinApi.SHFolder,
+  WinApi.TlHelp32;
 
 function AppVersion(exeName: string): string;
 function GetAppDataFolder: string;
+function ProcessExists(exeFileName: string): Boolean;
 
 implementation
 
@@ -43,4 +47,25 @@ begin
     Result := '';
 end;
 
+function ProcessExists(exeFileName: string): Boolean;
+var
+  ContinueLoop: BOOL;
+  FSnapshotHandle: THandle;
+  FProcessEntry32: TProcessEntry32;
+begin
+  FSnapshotHandle := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+  FProcessEntry32.dwSize := SizeOf(FProcessEntry32);
+  ContinueLoop := Process32First(FSnapshotHandle, FProcessEntry32);
+  Result := False;
+  while Integer(ContinueLoop) <> 0 do
+  begin
+    if ((UpperCase(ExtractFileName(FProcessEntry32.szExeFile)) = UpperCase(ExeFileName))
+      or (UpperCase(FProcessEntry32.szExeFile) = UpperCase(ExeFileName))) then
+    begin
+      Result := True;
+    end;
+    ContinueLoop := Process32Next(FSnapshotHandle, FProcessEntry32);
+  end;
+  CloseHandle(FSnapshotHandle);
+end;
 end.
