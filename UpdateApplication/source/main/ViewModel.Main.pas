@@ -209,7 +209,7 @@ var
   LVersiOffline: string;
   LUrl: string;
 begin
-  if (FApplicationData.RecNo = FApplicationData.RecordCount) then Exit;
+  if FApplicationData.Eof then Exit;
 
   LNama := FApplicationData.FieldByName('nama').AsString;
   LUrl:= FApplicationData.FieldByName('download').AsString;
@@ -246,7 +246,6 @@ begin
     // Start the download process
     FAsyncResult := FDownload.BeginGet(DoEndDownload, AUrl, FDownloadStream);
   finally
-//    FAsyncResult;
   end;
 end;
 
@@ -264,11 +263,6 @@ begin
       FOnMaxProgressChange(AContentLength);
       FOnProgressChange(AReadCount, Format(' %d KB/dtk - %d KB dari %d KB',
       [LSpeed div 1024, AReadCount div 1024, AContentLength div 1024]));
-
-      if (AReadCount = AContentLength) then
-      begin
-        FApplicationData.Next;
-        CheckApplication;
       end;
     end);
 end;
@@ -293,6 +287,8 @@ begin
   finally
     LAsyncResponse := nil;
     FreeandNil(FDownloadStream);
+    FApplicationData.Next;
+    CheckApplication;
   end;
 end;
 
