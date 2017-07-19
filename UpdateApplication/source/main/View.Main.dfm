@@ -32,7 +32,6 @@ object FrmMain: TFrmMain
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goRowSelect]
     TabOrder = 0
     OnDrawCell = SgAppDrawCell
-    ExplicitHeight = 224
     ColWidths = (
       150
       75
@@ -124,15 +123,16 @@ object FrmMain: TFrmMain
     Height = 35
     Align = alBottom
     TabOrder = 2
-    ExplicitTop = 359
+    ExplicitLeft = -2
     DesignSize = (
       699
       35)
     object BtnCekUpdate: TButton
-      Left = 8
+      Left = 534
       Top = 4
       Width = 75
       Height = 25
+      Anchors = [akTop, akRight]
       Caption = 'Cek Update'
       TabOrder = 0
       OnClick = BtnCekUpdateClick
@@ -147,6 +147,15 @@ object FrmMain: TFrmMain
       TabOrder = 1
       OnClick = BtnUpdateClick
     end
+    object BtnSetting: TButton
+      Left = 4
+      Top = 4
+      Width = 75
+      Height = 25
+      Caption = 'Setting'
+      TabOrder = 2
+      OnClick = BtnSettingClick
+    end
   end
   object PnlDownload: TPanel
     AlignWithMargins = True
@@ -157,7 +166,6 @@ object FrmMain: TFrmMain
     Align = alBottom
     TabOrder = 3
     Visible = False
-    ExplicitTop = 312
     object LblDownload: TLabel
       AlignWithMargins = True
       Left = 4

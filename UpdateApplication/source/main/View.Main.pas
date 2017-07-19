@@ -39,12 +39,14 @@ type
     PnlDownload: TPanel;
     PbDownload: TProgressBar;
     LblDownload: TLabel;
+    BtnSetting: TButton;
     procedure BtnCekUpdateClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure SgAppDrawCell(Sender: TObject; ACol, ARow: Integer; Rect: TRect;
       State: TGridDrawState);
     procedure BtnUpdateClick(Sender: TObject);
+    procedure BtnSettingClick(Sender: TObject);
   private
     FVm: TViewModelMain;
     FAppPath: string; // path application to be check.
@@ -67,6 +69,11 @@ begin
   BtnUpdate.Enabled := False;
   FVm.Start;
   Screen.Cursor := crDefault;
+end;
+
+procedure TFrmMain.BtnSettingClick(Sender: TObject);
+begin
+  Fvm.OpenFormSetting;
 end;
 
 procedure TFrmMain.BtnUpdateClick(Sender: TObject);
