@@ -58,6 +58,7 @@ type
     destructor Destroy;
     procedure Start;
     procedure Update;
+    procedure OpenFormSetting;
     procedure SetOnShowMessage(AProc: TProci);
     procedure SetOnLoadClient(AProc: TProc<TClient>);
     procedure OnMaxProgressChange(AProc: TProcInt);
@@ -147,6 +148,11 @@ end;
 procedure TViewModelMain.OnProgressChange(AProc: TProcIntMsg);
 begin
   FOnProgressChange := AProc;
+end;
+
+procedure TViewModelMain.OpenFormSetting;
+begin
+  //
 end;
 
 procedure TViewModelMain.SetOnLoadClient(AProc: TProc<TClient>);
