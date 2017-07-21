@@ -37,33 +37,10 @@ end;
 { TDatabase }
 
 constructor TDatabase.Create;
-var
-  host, db, jalur, user, kunci: string;
-  X: TextFile;
 begin
   FConnection := TMyConnection.Create(nil);
   FQuery := TMyQuery.Create(FConnection);
   FQuery.Connection := FConnection;
-
-  assignfile(X, 'koneksi.cbCon');
-  reset(X);
-  readln(X, host);
-  readln(X, db);
-  readln(X, jalur);
-  readln(X, user);
-  readln(X, kunci);
-  closefile(X);
-
-  with FConnection do
-  begin
-    Server := Decrypt(host, 6);
-    Database := Decrypt(db, 6);
-    Username := Decrypt(user, 6);
-    Password := Decrypt(kunci, 6);
-    port := StrToInt(Decrypt(jalur, 6));
-    Connected := True;
-  end;
-
 end;
 
 destructor TDatabase.Destroy;
@@ -89,8 +66,31 @@ begin
 end;
 
 function TDatabase.IsConnected: Boolean;
+var
+  host, db, jalur, user, kunci: string;
+  X: TextFile;
 begin
-  FConnection.Connect;
+  try
+    assignfile(X, 'koneksi_server.cbCon');
+    reset(X);
+    readln(X, host);
+    readln(X, db);
+    readln(X, jalur);
+    readln(X, user);
+    readln(X, kunci);
+    closefile(X);
+
+    with FConnection do
+    begin
+      Server := Decrypt(host, 6);
+      Database := Decrypt(db, 6);
+      Username := Decrypt(user, 6);
+      Password := Decrypt(kunci, 6);
+      port := StrToInt(Decrypt(jalur, 6));
+      Connected := True;
+    end;
+  except
+  end;
   Result := FConnection.Connected;
 end;
 
