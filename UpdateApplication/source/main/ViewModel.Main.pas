@@ -325,7 +325,12 @@ begin
     FApplicationData.Post;
   except
   on e: Exception do
-    FOnShowMessage(Format('Extract File Gagal, %s', [e.Message]));
+    begin
+      TFile.Delete(LZipFileName);
+      CheckApplication;
+      FOnShowMessage(Format('Extract File Gagal, Download Ulang File!!!, %s', [e.Message]));
+      Exit;
+    end;
   end;
 
   FApplicationData.Next;
