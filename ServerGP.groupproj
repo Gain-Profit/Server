@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{D0A5F598-FDC1-493E-BCD8-DDD89D9A0221}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="UpdateDatabase\UpdateDatabase.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="UpdateApplication\UpdateGainProfit.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="UpdateDatabase">
+        <MSBuild Projects="UpdateDatabase\UpdateDatabase.dproj"/>
+    </Target>
+    <Target Name="UpdateDatabase:Clean">
+        <MSBuild Projects="UpdateDatabase\UpdateDatabase.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="UpdateDatabase:Make">
+        <MSBuild Projects="UpdateDatabase\UpdateDatabase.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="UpdateGainProfit">
+        <MSBuild Projects="UpdateApplication\UpdateGainProfit.dproj"/>
+    </Target>
+    <Target Name="UpdateGainProfit:Clean">
+        <MSBuild Projects="UpdateApplication\UpdateGainProfit.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="UpdateGainProfit:Make">
+        <MSBuild Projects="UpdateApplication\UpdateGainProfit.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="UpdateDatabase;UpdateGainProfit"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="UpdateDatabase:Clean;UpdateGainProfit:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="UpdateDatabase:Make;UpdateGainProfit:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
