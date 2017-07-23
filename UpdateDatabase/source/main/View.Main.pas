@@ -25,7 +25,6 @@ type
     PnlDownload: TPanel;
     LblDownload: TLabel;
     PbDownload: TProgressBar;
-    SgDownload: TStringGrid;
     EdVersiNew: TEdit;
     Label5: TLabel;
     EdVersiOld: TEdit;

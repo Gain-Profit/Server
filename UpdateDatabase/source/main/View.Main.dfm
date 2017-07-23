@@ -1,9 +1,11 @@
 object FrmMain: TFrmMain
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'Update Database Gain Profit'
-  ClientHeight = 458
-  ClientWidth = 634
+  ClientHeight = 280
+  ClientWidth = 438
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,58 +21,56 @@ object FrmMain: TFrmMain
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 628
-    Height = 94
-    Align = alTop
+    Width = 432
+    Height = 186
+    Align = alClient
     TabOrder = 0
-    ExplicitWidth = 606
-    DesignSize = (
-      628
-      94)
+    ExplicitWidth = 628
+    ExplicitHeight = 182
     object Label1: TLabel
-      Left = 34
+      Left = 50
       Top = 16
       Width = 24
       Height = 13
       Caption = 'Kode'
     end
     object Label2: TLabel
-      Left = 438
-      Top = 13
+      Left = 38
+      Top = 94
       Width = 36
       Height = 13
       Caption = 'Expired'
     end
     object Label3: TLabel
-      Left = 5
+      Left = 21
       Top = 40
       Width = 53
       Height = 13
       Caption = 'Nama Toko'
     end
     object Label4: TLabel
-      Left = 25
+      Left = 41
       Top = 67
       Width = 33
       Height = 13
       Caption = 'Alamat'
     end
     object Label5: TLabel
-      Left = 403
-      Top = 67
+      Left = 3
+      Top = 148
       Width = 71
       Height = 13
       Caption = 'Versi Sekarang'
     end
     object Label6: TLabel
-      Left = 410
-      Top = 40
+      Left = 10
+      Top = 121
       Width = 64
       Height = 13
       Caption = 'Versi Terbaru'
     end
     object EdKode: TEdit
-      Left = 64
+      Left = 80
       Top = 10
       Width = 330
       Height = 21
@@ -78,17 +78,15 @@ object FrmMain: TFrmMain
       TabOrder = 0
     end
     object EdExpired: TEdit
-      Left = 480
-      Top = 10
-      Width = 142
+      Left = 80
+      Top = 91
+      Width = 330
       Height = 21
-      Anchors = [akLeft, akTop, akRight]
       Enabled = False
       TabOrder = 1
-      ExplicitWidth = 120
     end
     object EdNama: TEdit
-      Left = 64
+      Left = 80
       Top = 37
       Width = 330
       Height = 21
@@ -96,7 +94,7 @@ object FrmMain: TFrmMain
       TabOrder = 2
     end
     object EdAlamat: TEdit
-      Left = 64
+      Left = 80
       Top = 64
       Width = 330
       Height = 21
@@ -104,59 +102,54 @@ object FrmMain: TFrmMain
       TabOrder = 3
     end
     object EdVersiNew: TEdit
-      Left = 480
-      Top = 64
-      Width = 142
+      Left = 80
+      Top = 145
+      Width = 330
       Height = 21
-      Anchors = [akLeft, akTop, akRight]
       Enabled = False
       TabOrder = 4
-      ExplicitWidth = 120
     end
     object EdVersiOld: TEdit
-      Left = 480
-      Top = 37
-      Width = 142
+      Left = 80
+      Top = 118
+      Width = 330
       Height = 21
-      Anchors = [akLeft, akTop, akRight]
       Enabled = False
       TabOrder = 5
-      ExplicitWidth = 120
     end
   end
   object PnlFooter: TPanel
     AlignWithMargins = True
     Left = 3
-    Top = 420
-    Width = 628
+    Top = 242
+    Width = 432
     Height = 35
     Align = alBottom
     TabOrder = 1
-    ExplicitLeft = -87
-    ExplicitTop = 378
-    ExplicitWidth = 699
+    ExplicitTop = 420
+    ExplicitWidth = 628
     DesignSize = (
-      628
+      432
       35)
     object BtnCekUpdate: TButton
-      Left = 463
+      Left = 267
       Top = 4
       Width = 75
       Height = 25
       Anchors = [akTop, akRight]
       Caption = 'Cek Update'
       TabOrder = 0
-      ExplicitLeft = 534
+      ExplicitLeft = 463
     end
     object BtnUpdate: TButton
-      Left = 544
+      Left = 348
       Top = 4
       Width = 75
       Height = 25
       Anchors = [akTop, akRight]
       Caption = 'Update'
       TabOrder = 1
-      ExplicitLeft = 615
+      ExplicitLeft = 544
     end
     object BtnSetting: TButton
       Left = 4
@@ -170,20 +163,19 @@ object FrmMain: TFrmMain
   object PnlDownload: TPanel
     AlignWithMargins = True
     Left = 3
-    Top = 373
-    Width = 628
+    Top = 195
+    Width = 432
     Height = 41
     Align = alBottom
     TabOrder = 2
     Visible = False
-    ExplicitLeft = -87
-    ExplicitTop = 331
-    ExplicitWidth = 699
+    ExplicitTop = 373
+    ExplicitWidth = 628
     object LblDownload: TLabel
       AlignWithMargins = True
       Left = 4
       Top = 4
-      Width = 620
+      Width = 424
       Height = 13
       Align = alTop
       Caption = 'Download ...'
@@ -193,39 +185,12 @@ object FrmMain: TFrmMain
       AlignWithMargins = True
       Left = 4
       Top = 20
-      Width = 620
+      Width = 424
       Height = 17
       Margins.Top = 0
       Align = alBottom
       TabOrder = 0
-      ExplicitWidth = 691
+      ExplicitWidth = 620
     end
-  end
-  object SgDownload: TStringGrid
-    Tag = 4
-    AlignWithMargins = True
-    Left = 3
-    Top = 103
-    Width = 628
-    Height = 264
-    Align = alClient
-    ColCount = 4
-    DefaultColWidth = 100
-    DefaultRowHeight = 18
-    FixedCols = 0
-    RowCount = 2
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goRowSelect]
-    TabOrder = 3
-    ExplicitTop = 160
-    ExplicitWidth = 606
-    ExplicitHeight = 207
-    ColWidths = (
-      150
-      75
-      100
-      100)
-    RowHeights = (
-      18
-      18)
   end
 end
