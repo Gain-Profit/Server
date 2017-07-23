@@ -105,7 +105,7 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="source\main\View.Main.pas">
-            <Form>Form1</Form>
+            <Form>FrmMain</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">

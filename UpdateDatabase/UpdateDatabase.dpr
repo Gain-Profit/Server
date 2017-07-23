@@ -2,13 +2,13 @@ program UpdateDatabase;
 
 uses
   Vcl.Forms,
-  View.Main in 'source\main\View.Main.pas' {Form1};
+  View.Main in 'source\main\View.Main.pas' {FrmMain};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TFrmMain, FrmMain);
   Application.Run;
 end.
