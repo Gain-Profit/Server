@@ -15,6 +15,7 @@ object FrmMain: TFrmMain
   KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object PnlHeader: TPanel
@@ -25,8 +26,6 @@ object FrmMain: TFrmMain
     Height = 186
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 628
-    ExplicitHeight = 182
     object Label1: TLabel
       Left = 50
       Top = 16
@@ -126,8 +125,6 @@ object FrmMain: TFrmMain
     Height = 35
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 420
-    ExplicitWidth = 628
     DesignSize = (
       432
       35)
@@ -139,7 +136,6 @@ object FrmMain: TFrmMain
       Anchors = [akTop, akRight]
       Caption = 'Cek Update'
       TabOrder = 0
-      ExplicitLeft = 463
     end
     object BtnUpdate: TButton
       Left = 348
@@ -149,7 +145,6 @@ object FrmMain: TFrmMain
       Anchors = [akTop, akRight]
       Caption = 'Update'
       TabOrder = 1
-      ExplicitLeft = 544
     end
     object BtnSetting: TButton
       Left = 4
@@ -169,8 +164,6 @@ object FrmMain: TFrmMain
     Align = alBottom
     TabOrder = 2
     Visible = False
-    ExplicitTop = 373
-    ExplicitWidth = 628
     object LblDownload: TLabel
       AlignWithMargins = True
       Left = 4
@@ -190,7 +183,6 @@ object FrmMain: TFrmMain
       Margins.Top = 0
       Align = alBottom
       TabOrder = 0
-      ExplicitWidth = 620
     end
   end
 end
