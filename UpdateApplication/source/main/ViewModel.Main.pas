@@ -87,7 +87,7 @@ begin
   FApi := TFirebaseApi.Create(BASE_URL);
   FApiApplication := TFirebaseApi.Create(BASE_APPLICATION_URL, 'profit');
 
-  FDb := TDatabase.Create;
+  FDb := TDatabase.Create(LPath);
 
   FDownload := THTTPClient.Create;
   FDownload.OnReceiveData := ReceiveDataEvent;

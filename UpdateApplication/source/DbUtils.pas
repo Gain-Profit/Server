@@ -8,10 +8,11 @@ uses
 type
   TDatabase = class(TObject)
   private
+    FPath: TFileName;
     FConnection: TMyConnection;
     FQuery: TMyQuery;
   public
-    constructor Create;
+    constructor Create(APAth: string);
     destructor Destroy;
     procedure ExecSQL(ASQL: string);
     function IsConnected: Boolean;
@@ -36,11 +37,12 @@ end;
 
 { TDatabase }
 
-constructor TDatabase.Create;
+constructor TDatabase.Create(APAth: string);
 begin
   FConnection := TMyConnection.Create(nil);
   FQuery := TMyQuery.Create(FConnection);
   FQuery.Connection := FConnection;
+  FPath := APAth + '\Tools\koneksi.cbCon';
 end;
 
 destructor TDatabase.Destroy;
@@ -71,7 +73,7 @@ var
   X: TextFile;
 begin
   try
-    assignfile(X, 'koneksi_server.cbCon');
+    assignfile(X, FPath);
     reset(X);
     readln(X, host);
     readln(X, db);
